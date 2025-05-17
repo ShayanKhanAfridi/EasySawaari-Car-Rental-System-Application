@@ -1,0 +1,38 @@
+create database car_rental;
+
+CREATE TABLE admins (
+    id INT IDENTITY(1,1) PRIMARY KEY,  -- Auto-increment for SQL Server
+    name NVARCHAR(100),                -- Optional: admin's name
+    email NVARCHAR(100) NOT NULL UNIQUE, 
+    password NVARCHAR(255) NOT NULL,   -- store hashed passwords
+    created_at DATETIME DEFAULT GETDATE()
+);
+
+
+CREATE TABLE users (
+    id INT IDENTITY(1,1) PRIMARY KEY,  -- SQL Server equivalent to AUTO_INCREMENT
+    full_name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    created_at DATETIME DEFAULT GETDATE()  -- Using GETDATE() for current date and time
+);
+
+CREATE TABLE cars (
+    carId INT PRIMARY KEY,          -- Unique identifier for the car
+    make VARCHAR(100),              -- Car's make (e.g., Toyota, Ford)
+    model VARCHAR(100),             -- Car's model (e.g., Camry, Mustang)
+    year INT,                       -- Year the car was manufactured
+    colour VARCHAR(50),             -- Car's color
+    price DECIMAL(10, 2),           -- Rental price of the car
+    availability VARCHAR(10)        -- Availability status (e.g., Yes, No)
+);
+
+CREATE TABLE rental_data (
+    orderID INT NOT NULL,                -- Unique order ID (Primary Key)
+    renterName VARCHAR(100) NOT NULL,    -- Name of the renter
+    contact VARCHAR(15) NOT NULL,        -- Contact details (phone number)
+    carID INT NOT NULL,                  -- ID of the car being rented
+    endDate DATE NOT NULL,               -- End date of the rental
+    price DECIMAL(10, 2) NOT NULL,       -- Due amount for the rental
+    PRIMARY KEY (orderID)
+);
